@@ -84,20 +84,36 @@ const io = new Server(httpServer, {
   allowRequest: (req, callback) => {
     // 详细日志
     console.log('[WatchRoom] Connection attempt from:', req.headers.origin);
-    console.log('[WatchRoom] Authorization header:', req.headers.authorization);
-    console.log('[WatchRoom] All headers:', JSON.stringify(req.headers, null, 2));
+    console.log('[WatchRoom] URL:', req.url);
+
+    // 尝试从多个地方获取认证信息
+    const authHeader = req.headers.authorization;
+    const urlParams = new URL(req.url || '', 'http://localhost').searchParams;
+    const authFromQuery = urlParams.get('auth');
+
+    console.log('[WatchRoom] Authorization header:', authHeader);
+    console.log('[WatchRoom] Auth from query:', authFromQuery);
     console.log('[WatchRoom] Expected AUTH_KEY:', AUTH_KEY);
 
-    const auth = req.headers.authorization;
-    if (auth === `Bearer ${AUTH_KEY}`) {
-      console.log('[WatchRoom] ✅ Authentication successful');
+    // 检查 Authorization header
+    if (authHeader === `Bearer ${AUTH_KEY}`) {
+      console.log('[WatchRoom] ✅ Authentication successful (via header)');
       callback(null, true);
-    } else {
-      console.log('[WatchRoom] ❌ Authentication failed');
-      console.log('[WatchRoom] Received:', auth);
-      console.log('[WatchRoom] Expected:', `Bearer ${AUTH_KEY}`);
-      callback('Unauthorized', false);
+      return;
     }
+
+    // 检查 query 参数（作为备用方案）
+    if (authFromQuery === AUTH_KEY) {
+      console.log('[WatchRoom] ✅ Authentication successful (via query)');
+      callback(null, true);
+      return;
+    }
+
+    console.log('[WatchRoom] ❌ Authentication failed');
+    console.log('[WatchRoom] Received header:', authHeader);
+    console.log('[WatchRoom] Received query:', authFromQuery);
+    console.log('[WatchRoom] Expected:', `Bearer ${AUTH_KEY}`);
+    callback('Unauthorized', false);
   },
 });
 

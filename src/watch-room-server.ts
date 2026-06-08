@@ -344,6 +344,78 @@ export class WatchRoomServer {
         });
       });
 
+      socket.on('music:change', (state) => {
+        const roomInfo = this.socketToRoom.get(socket.id);
+        if (!roomInfo || !roomInfo.isOwner) return;
+
+        const room = this.rooms.get(roomInfo.roomId);
+        if (room?.roomType === 'music') {
+          room.currentState = state;
+          this.rooms.set(roomInfo.roomId, room);
+          socket.to(roomInfo.roomId).emit('music:change', state);
+        }
+      });
+
+      socket.on('music:update', (state) => {
+        const roomInfo = this.socketToRoom.get(socket.id);
+        if (!roomInfo || !roomInfo.isOwner) return;
+
+        const room = this.rooms.get(roomInfo.roomId);
+        if (room?.roomType === 'music') {
+          room.currentState = state;
+          this.rooms.set(roomInfo.roomId, room);
+          socket.to(roomInfo.roomId).emit('music:update', state);
+        }
+      });
+
+      socket.on('music:queue', (state) => {
+        const roomInfo = this.socketToRoom.get(socket.id);
+        if (!roomInfo || !roomInfo.isOwner) return;
+
+        const room = this.rooms.get(roomInfo.roomId);
+        if (room?.roomType === 'music') {
+          room.currentState = state;
+          this.rooms.set(roomInfo.roomId, room);
+          socket.to(roomInfo.roomId).emit('music:queue', state);
+        }
+      });
+
+      socket.on('music:play', (state) => {
+        const roomInfo = this.socketToRoom.get(socket.id);
+        if (!roomInfo || !roomInfo.isOwner) return;
+
+        const room = this.rooms.get(roomInfo.roomId);
+        if (room?.roomType === 'music') {
+          room.currentState = state;
+          this.rooms.set(roomInfo.roomId, room);
+          socket.to(roomInfo.roomId).emit('music:play', state);
+        }
+      });
+
+      socket.on('music:pause', (state) => {
+        const roomInfo = this.socketToRoom.get(socket.id);
+        if (!roomInfo || !roomInfo.isOwner) return;
+
+        const room = this.rooms.get(roomInfo.roomId);
+        if (room?.roomType === 'music') {
+          room.currentState = state;
+          this.rooms.set(roomInfo.roomId, room);
+          socket.to(roomInfo.roomId).emit('music:pause', state);
+        }
+      });
+
+      socket.on('music:seek', (state) => {
+        const roomInfo = this.socketToRoom.get(socket.id);
+        if (!roomInfo || !roomInfo.isOwner) return;
+
+        const room = this.rooms.get(roomInfo.roomId);
+        if (room?.roomType === 'music') {
+          room.currentState = state;
+          this.rooms.set(roomInfo.roomId, room);
+          socket.to(roomInfo.roomId).emit('music:seek', state);
+        }
+      });
+
       // 聊天消息
       socket.on('chat:message', (data) => {
         const roomInfo = this.socketToRoom.get(socket.id);

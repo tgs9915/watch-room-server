@@ -61,7 +61,7 @@ app.get('/stats', (req, res) => {
 app.get('/', (_req, res) => {
   res.json({
     name: 'Watch Room Server',
-    version: '1.1.0',
+    version: '1.2.0',
     description: 'Standalone watch room server for MoonTVPlus',
     endpoints: {
       health: '/health',

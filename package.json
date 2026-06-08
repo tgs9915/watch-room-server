@@ -1,6 +1,6 @@
 {
   "name": "watch-room-server",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Standalone watch room server for MoonTVPlus",
   "main": "dist/index.js",
   "type": "module",

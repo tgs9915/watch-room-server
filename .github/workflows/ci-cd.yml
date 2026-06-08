@@ -50,7 +50,9 @@ jobs:
 
       - name: Extract version from package.json
         id: version
-        run: echo "PACKAGE_VERSION=$(node -e \"console.log(require('./package.json').version)\")" >> $GITHUB_OUTPUT
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "PACKAGE_VERSION=$VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Build and push
         uses: docker/build-push-action@v4

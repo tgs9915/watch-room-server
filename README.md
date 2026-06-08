@@ -1,6 +1,6 @@
 # Watch Room Server
 
-[![Docker Hub](https://img.shields.io/docker/v/cyc233/watch-room-server?label=Docker%20Hub&logo=docker)](https://hub.docker.com/r/cyc233/watch-room-server)
+[![Docker Hub](https://img.shields.io/docker/v/cyc233/watch-room-server/latest?label=Docker%20Hub&logo=docker)](https://hub.docker.com/r/cyc233/watch-room-server)
 [![Docker Pulls](https://img.shields.io/docker/pulls/cyc233/watch-room-server)](https://hub.docker.com/r/cyc233/watch-room-server)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
